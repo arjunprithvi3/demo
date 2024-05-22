@@ -1,0 +1,1154 @@
+MainActivity.java
+
+package com.example.canva_animation1_broad;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+
+public class MainActivity extends AppCompatActivity {
+
+    Button b1,b2,b3;
+
+    @SuppressLint("MissingInflatedId")
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        b1=findViewById(R.id.button);
+        b2=findViewById(R.id.button2);
+        b3=findViewById(R.id.button3);
+
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,Hardware.class));
+            }
+        });
+
+        b2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,Graphics.class));
+            }
+        });
+        b3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,anime.class));
+            }
+        });
+    }
+}
+
+
+activity_main.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="147dp"
+        android:layout_marginTop="154dp"
+        android:text="harware"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="147dp"
+        android:layout_marginTop="62dp"
+        android:layout_marginEnd="176dp"
+        android:text="draw"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="147dp"
+        android:layout_marginBottom="303dp"
+        android:text="anime"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+Hardware.java
+
+package com.example.canva_animation1_broad;
+
+
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class Hardware extends AppCompatActivity
+{
+
+    private Button Bt, wi, cam, sensorr;
+
+
+    @SuppressLint("MissingInflatedId")
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_hardware);
+
+
+        Bt = findViewById(R.id.bluetooth);
+        wi = findViewById(R.id.wifibutton);
+        cam = findViewById(R.id.camera_button);
+        sensorr = findViewById(R.id.sensorButton);
+
+        Bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(Hardware.this, "Bluetooth clicked", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(Hardware.this , Bluetooth.class));
+            }
+        });
+
+        wi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(Hardware.this, "Wifi clicked", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(Hardware.this , Wifi.class));
+            }
+        });
+
+        cam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(Hardware.this, "Camera clicked", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(Hardware.this , Camera.class));
+            }
+        });
+
+        sensorr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(Hardware.this, "Sensor clicked", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(Hardware.this , Sensor.class));
+            }
+        });
+    }
+
+}
+
+
+activity_hardware.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/bluetooth"
+        android:layout_width="145dp"
+        android:layout_height="wrap_content"
+        android:text="Bluetooth"
+        android:translationX="150dp"
+        android:translationY="100dp" />
+
+    <Button
+        android:id="@+id/wifibutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wifi"
+        android:translationX="30dp"
+        android:translationY="170dp" />
+
+    <Button
+        android:id="@+id/camera_button"
+        android:layout_width="128dp"
+        android:layout_height="wrap_content"
+        android:text="Camera"
+        android:translationX="-60dp"
+        android:translationY="240dp" />
+
+    <Button
+        android:id="@+id/sensorButton"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:text="Sensor"
+        android:translationX="-180dp"
+        android:translationY="310dp" />
+
+</LinearLayout>
+
+
+anime.java
+
+package com.example.canva_animation1_broad;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.ImageView;
+
+public class anime extends AppCompatActivity {
+
+    private ImageView imageView;
+    private Animation blinkAnimation;
+    private Animation rotateAnimation;
+    private Animation fadeAnimation;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.anime_layout);
+
+        imageView = findViewById(R.id.imageview);
+        blinkAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
+        rotateAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate);
+        fadeAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade);
+
+        Button btnBlink = findViewById(R.id.btnBlink);
+        Button btnRotate = findViewById(R.id.btnRotate);
+        Button btnFade = findViewById(R.id.btnFade);
+
+        btnBlink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageView.startAnimation(blinkAnimation);
+            }
+        });
+
+        btnRotate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageView.startAnimation(rotateAnimation);
+            }
+        });
+
+        btnFade.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageView.startAnimation(fadeAnimation);
+            }
+        });
+    }
+}
+
+
+anime_layout.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".Graphics">
+
+    <ImageView
+        android:id="@+id/imageview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_launcher_background"
+        android:layout_centerInParent="true"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btnBlink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Blink" />
+
+        <Button
+            android:id="@+id/btnRotate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rotate" />
+
+        <Button
+            android:id="@+id/btnFade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fade" />
+
+
+
+    </LinearLayout>
+
+</RelativeLayout>
+
+
+
+
+
+Graphics.java(drwaing)
+
+package com.example.canva_animation1_broad;
+
+import androidx.appcompat.app.AppCompatActivity;
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.RectF;
+import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.SeekBar;
+import android.widget.Spinner;
+import android.widget.Toast;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Graphics extends AppCompatActivity {
+
+    private static DrawingView drawingView;
+    private Button buttonRectangle, buttonCircle, buttonLine, buttonEraser, buttonEraseAll;
+    private SeekBar seekBarWidth;
+    private Spinner spinnerColor;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_graphics);
+        FrameLayout drawingContainer = findViewById(R.id.drawingContainer);
+        drawingView = new DrawingView(this);
+        drawingContainer.addView(drawingView);
+        buttonRectangle = findViewById(R.id.buttonRectangle);
+        buttonCircle = findViewById(R.id.buttonCircle);
+        buttonLine = findViewById(R.id.buttonLine);
+        buttonEraser = findViewById(R.id.buttonEraser);
+        buttonEraseAll = findViewById(R.id.buttonEraseAll);
+        seekBarWidth = findViewById(R.id.seekBarWidth);
+        spinnerColor = findViewById(R.id.spinnerColor);
+
+        // Setting up buttons, seekbar, and spinner
+
+        buttonRectangle.setOnClickListener(v -> drawingView.setDrawingMode(DrawingView.DrawingMode.RECTANGLE));
+        buttonCircle.setOnClickListener(v -> drawingView.setDrawingMode(DrawingView.DrawingMode.CIRCLE));
+        buttonLine.setOnClickListener(v -> drawingView.setDrawingMode(DrawingView.DrawingMode.LINE));
+        buttonEraser.setOnClickListener(v -> drawingView.setDrawingMode(DrawingView.DrawingMode.ERASER));
+        buttonEraseAll.setOnClickListener(v -> drawingView.eraseAll());
+
+        seekBarWidth.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                drawingView.setStrokeWidth(progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
+        String[] colors = {"Black", "Red", "Green", "Blue"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, colors);
+        spinnerColor.setAdapter(adapter);
+
+        spinnerColor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String colorName = parent.getItemAtPosition(position).toString();
+                int color = Color.BLACK;
+                switch (colorName) {
+                    case "Black":
+                        color = Color.BLACK;
+                        break;
+                    case "Red":
+                        color = Color.RED;
+                        break;
+                    case "Green":
+                        color = Color.GREEN;
+                        break;
+                    case "Blue":
+                        color = Color.BLUE;
+                        break;
+                }
+                drawingView.setColor(color);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+    }
+
+    public static class DrawingView extends View {
+
+        private Paint paint;
+        private List<Shape> shapes;
+        private Shape currentShape;
+        private DrawingMode drawingMode = DrawingMode.RECTANGLE;
+        private int strokeWidth = 5;
+        private int currentColor = Color.BLACK;
+
+        public enum DrawingMode {
+            RECTANGLE, CIRCLE, LINE, ERASER
+        }
+
+        public DrawingView(Context context) {
+            super(context);
+            init();
+        }
+
+        private void init() {
+            paint = new Paint();
+            paint.setColor(currentColor);
+            paint.setStrokeWidth(strokeWidth);
+            paint.setStyle(Paint.Style.STROKE);
+            paint.setAntiAlias(true);
+
+            shapes = new ArrayList<>();
+        }
+
+        @Override
+        protected void onDraw(Canvas canvas) {
+            super.onDraw(canvas);
+
+            for (Shape shape : shapes) {
+                shape.draw(canvas);
+            }
+
+            if (currentShape != null) {
+                currentShape.draw(canvas);
+            }
+        }
+
+        @Override
+        public boolean onTouchEvent(MotionEvent event) {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    if (drawingMode != DrawingMode.ERASER) {
+                        currentShape = new Shape();
+                        currentShape.setStrokeWidth(strokeWidth);
+                        currentShape.setColor(currentColor);
+                        currentShape.setDrawingMode(drawingMode);
+                        currentShape.moveTo(event.getX(), event.getY());
+                    } else {
+                        // Erase logic
+                        eraseAt(event.getX(), event.getY());
+                    }
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    if (drawingMode != DrawingMode.ERASER && currentShape != null) {
+                        currentShape.lineTo(event.getX(), event.getY());
+                    } else {
+                        // Erase logic
+                        eraseAt(event.getX(), event.getY());
+                    }
+                    invalidate();
+                    break;
+                case MotionEvent.ACTION_UP:
+                    if (drawingMode != DrawingMode.ERASER && currentShape != null) {
+                        shapes.add(currentShape);
+                        currentShape = null;
+                    }
+                    break;
+            }
+            return true;
+        }
+
+        public void setStrokeWidth(int strokeWidth) {
+            this.strokeWidth = strokeWidth;
+            if (currentShape != null) {
+                currentShape.setStrokeWidth(strokeWidth);
+            }
+        }
+
+        public void setColor(int color) {
+            this.currentColor = color;
+            if (currentShape != null) {
+                currentShape.setColor(color);
+            }
+        }
+
+        public void setDrawingMode(DrawingMode drawingMode) {
+            this.drawingMode = drawingMode;
+        }
+
+        private void eraseAt(float x, float y) {
+            // Iterate through shapes in reverse order to find the top-most shape at the point (x, y)
+            for (int i = shapes.size() - 1; i >= 0; i--) {
+                Shape shape = shapes.get(i);
+                if (shape.contains(x, y)) {
+                    shapes.remove(i);
+                    invalidate();
+                    break; // Only erase the top-most shape
+                }
+            }
+        }
+
+        public void eraseAll() {
+            shapes.clear();
+            invalidate();
+        }
+    }
+
+    public static class Shape {
+
+        private Path path;
+        private int color;
+        private int strokeWidth;
+        private DrawingView.DrawingMode drawingMode;
+
+        public Shape() {
+            path = new Path();
+        }
+
+        public void setColor(int color) {
+            this.color = color;
+        }
+
+        public void setStrokeWidth(int strokeWidth) {
+            this.strokeWidth = strokeWidth;
+        }
+
+        public void setDrawingMode(DrawingView.DrawingMode drawingMode) {
+            this.drawingMode = drawingMode;
+        }
+
+        public void moveTo(float x, float y) {
+            path.moveTo(x, y);
+        }
+
+        public void lineTo(float x, float y) {
+            path.lineTo(x, y);
+        }
+
+        public void draw(Canvas canvas) {
+            Paint paint = new Paint();
+            paint.setColor(color);
+            paint.setStrokeWidth(strokeWidth);
+            paint.setStyle(Paint.Style.STROKE);
+            paint.setAntiAlias(true);
+
+            RectF bounds = new RectF();
+            path.computeBounds(bounds, true);
+
+            switch (drawingMode) {
+                case RECTANGLE:
+                    canvas.drawRect(bounds, paint);
+                    break;
+                case CIRCLE:
+                    float centerX = bounds.centerX();
+                    float centerY = bounds.centerY();
+                    float radius = Math.max(bounds.width(), bounds.height()) / 2;
+                    canvas.drawCircle(centerX, centerY, radius, paint);
+                    break;
+                case LINE:
+                    canvas.drawPath(path, paint);
+                    break;
+            }
+        }
+
+        public boolean contains(float x, float y) {
+            RectF bounds = new RectF();
+            path.computeBounds(bounds, true);
+            return bounds.contains(x, y);
+        }
+    }
+}
+
+
+
+
+
+
+activity_graphics.xml
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Graphics">
+
+    <LinearLayout
+        android:id="@+id/buttons_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageview"
+        android:layout_marginTop="116dp"
+        android:orientation="vertical"
+        tools:ignore="NotSibling">
+
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/drawingContainer"
+        android:layout_width="331dp"
+        android:layout_height="370dp"
+        android:translationX="35dp"
+        android:translationY="340dp">
+
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/buttonRectangle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RECTANGLE"
+        android:translationX="15dp"
+        android:translationY="180dp" />
+
+    <Button
+        android:id="@+id/buttonLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LINE"
+        android:translationX="260dp"
+        android:translationY="230dp" />
+
+    <Button
+        android:id="@+id/buttonCircle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CIRCLE"
+        android:translationX="280dp"
+        android:translationY="180dp" />
+
+    <SeekBar
+        android:id="@+id/seekBarWidth"
+        android:layout_width="331dp"
+        android:layout_height="32dp"
+        android:background="#D3C4ED"
+        android:max="20"
+        android:translationX="40dp"
+        android:translationY="300dp" />
+
+    <Spinner
+        android:id="@+id/spinnerColor"
+        android:layout_width="79dp"
+        android:layout_height="48dp"
+        android:background="#8a2be2"
+        android:spinnerMode="dialog"
+        android:translationX="165dp"
+        android:translationY="230dp"
+        tools:visibility="visible" />
+
+    <Button
+        android:id="@+id/buttonEraser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rubber"
+        android:translationX="60dp"
+        android:translationY="230dp" />
+
+    <Button
+        android:id="@+id/buttonEraseAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Erase All"
+        android:translationX="150dp"
+        android:translationY="180dp" />
+
+</RelativeLayout>
+
+
+
+
+Sensor.java
+
+package com.example.canva_animation1_broad;
+
+
+import android.annotation.SuppressLint;
+import android.os.Bundle;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class Sensor extends AppCompatActivity {
+    Button button;
+    @SuppressLint({"MissingInflatedId", "ClickableViewAccessibility"})
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_sensor);
+        button = findViewById(R.id.sensorButton);
+        button.setOnTouchListener(new View.OnTouchListener() {
+            GestureDetector gestureDetector = new GestureDetector(getApplicationContext(), new GestureDetector.SimpleOnGestureListener(){
+                @Override
+                public void onLongPress(MotionEvent e) {
+                    Toast.makeText(getApplicationContext(), "Long Press", Toast.LENGTH_SHORT).show();
+                    super.onLongPress(e);
+                }
+
+                @Override
+                public boolean onFling(@Nullable MotionEvent e1, @NonNull MotionEvent e2, float velocityX, float velocityY) {
+                    return super.onFling(e1, e2, velocityX, velocityY);
+                }
+
+                @Override
+                public boolean onDoubleTap(MotionEvent e) {
+                    Toast.makeText(getApplicationContext(), "Double Tap", Toast.LENGTH_SHORT).show();
+                    return super.onDoubleTap(e);
+                }
+            });
+
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                gestureDetector.onTouchEvent(motionEvent);
+                return false;
+            }
+        });
+    }
+}
+
+
+
+
+
+activity_sensor.xml
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Sensor">
+
+    <Button
+        android:id="@+id/sensorButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+Wifi.java
+
+
+package com.example.canva_animation1_broad;
+
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.net.wifi.ScanResult;
+import android.net.wifi.WifiManager;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class Wifi extends AppCompatActivity {
+    ListView listView;
+    Button button;
+    WifiManager wifiManager;
+
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_wifi);
+        listView = findViewById(R.id.wifilist);
+        button = findViewById(R.id.showWifi);
+        wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showWifiDevices();
+            }
+        });
+    }
+
+    private void showWifiDevices() {
+        // Toast.makeText(this, "Hello", Toast.LENGTH_SHORT).show();
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Log.d("Error","Program Returned");
+            return;
+        }
+
+        List<ScanResult> wifi = wifiManager.getScanResults();
+        if(wifi.size() > 0){
+            String[] devices = new String[wifi.size()];
+            int index = 0;
+            for(;index<wifi.size();index++){
+                String details= wifi.get(index).toString();
+                Pattern pattern = Pattern.compile("SSID: (.*?),");
+                // Match the pattern against the input string
+                Matcher matcher = pattern.matcher(details);
+                // Check if the pattern is found
+                if (matcher.find()) {
+                    String ssid = matcher.group(1); // Extract the SSID
+                    devices[index] = ssid;
+                }
+
+                Log.d("Wifi", "Device Name: " + devices[index]);
+            }
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, devices);
+            listView.setAdapter(arrayAdapter);
+        }
+    }
+}
+
+
+
+
+
+activity_wifi.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Wifi">
+
+    <Button
+        android:id="@+id/showWifi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:text="Show Wifi Devices"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ListView
+        android:id="@+id/wifilist"
+        android:layout_width="409dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/showWifi" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+Bluetooth.java
+
+package com.example.canva_animation1_broad;
+
+import android.Manifest;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+public class Bluetooth extends AppCompatActivity {
+    ListView listView;
+    Button button;
+    BluetoothAdapter bluetoothAdapter;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_bluetooth);
+        listView = findViewById(R.id.bluetoothlist);
+        button = findViewById(R.id.showBluetooth);
+        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showBondedDevices();
+            }
+        });
+    }
+
+    private void showBondedDevices() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH) != PackageManager.PERMISSION_GRANTED) {
+            Log.d("Bluetooth", "Bluetooth permission not granted.");
+            return;
+        }
+
+        Set<BluetoothDevice> bondedDevices = bluetoothAdapter.getBondedDevices();
+        if (bondedDevices.size() > 0) {
+            List<String> deviceNames = new ArrayList<>();
+            for (BluetoothDevice device : bondedDevices) {
+                String deviceName = device.getName();
+                deviceNames.add(deviceName);
+                Log.d("Bluetooth", "Device Name: " + deviceName);
+            }
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, deviceNames);
+            listView.setAdapter(arrayAdapter);
+        } else {
+            Toast.makeText(this, "No bonded Bluetooth devices found.", Toast.LENGTH_SHORT).show();
+        }
+    }
+}
+
+
+activity_bluetooth.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Bluetooth">
+
+    <Button
+        android:id="@+id/showBluetooth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Bluetooth Devices"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"/>
+
+    <ListView
+        android:id="@+id/bluetoothlist"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/showBluetooth"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+Camera.java
+
+package com.example.canva_animation1_broad;
+
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.provider.MediaStore;
+import android.widget.Button;
+import android.widget.ImageView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class Camera extends AppCompatActivity {
+
+    private static final int pic_id = 123;
+    // Define the button and imageview type variable
+    Button button;
+    ImageView image;
+
+
+    @SuppressLint("MissingInflatedId")
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_camera);
+        button = findViewById(R.id.camera_button);
+        image = findViewById(R.id.click_image);
+
+        button.setOnClickListener(v->{
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);;
+            startActivityForResult(intent,pic_id);
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == pic_id){
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            image.setImageBitmap(photo);
+        }
+    }
+}
+
+
+
+activity_camera.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Camera">
+
+    <Button
+        android:id="@+id/camera_button"
+        android:layout_width="158dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="150dp"
+        android:text="Camera"
+        android:translationX="-30dp" />
+
+    <ImageView
+        android:id="@+id/click_image"
+        android:layout_width="350dp"
+        android:layout_height="450dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="10dp" />
+
+</RelativeLayout>
+
+
+
+res/anim/blink.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<alpha xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+    android:fromAlpha="1.0"
+    android:toAlpha="0.0"
+    android:duration="500"
+    android:repeatCount="infinite"
+    android:repeatMode="reverse" />
+
+
+res/anim/fade.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<alpha xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+    android:fromAlpha="1.0"
+    android:toAlpha="0.0"
+    android:duration="1000" />
+
+
+res/anim/rotate.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<rotate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@android:anim/linear_interpolator"
+    android:fromDegrees="0"
+    android:toDegrees="360"
+    android:pivotX="50%"
+    android:pivotY="50%"
+    android:duration="1000"
+    android:repeatCount="infinite" />
+
+
+Manifest
+
+	Inside application tag:
+
+<activity android:name=".anime"/>
+<activity android:name=".Camera"/>
+<activity android:name=".Graphics"/>
+<activity android:name=".Hardware"/>
+<activity android:name=".Sensor"/>
+<activity android:name=".Wifi"/>
+<activity android:name=".Bluetooth"/>
+
+
+
+	Before application tag:
+
+<uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.bluetooth"
+        android:required="false" />
+
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+  
