@@ -1,0 +1,206 @@
+MainActivity.java
+package com.example.allmenus;
+
+import android.app.ProgressDialog;
+import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.PopupMenu;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+public class MainActivity extends AppCompatActivity {
+
+    private ListView listView;
+
+    private static final int CONTEXT_MENU_ROLL_NO = 1;
+    private static final int CONTEXT_MENU_PLACE = 2;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        listView = findViewById(R.id.listView);
+
+        String[] names = {"John Doe", "Jane Smith", "Alice Johnson"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, names);
+        listView.setAdapter(adapter);
+
+        registerForContextMenu(listView);
+
+        listView.setOnItemClickListener((parent, view, position, id) -> showPopupMenu(view));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_profile) {
+            Toast.makeText(this, "Profile Selected", Toast.LENGTH_SHORT).show();
+            return true;
+        } else if (item.getItemId() == R.id.action_settings) {
+            Toast.makeText(this, "Settings Selected", Toast.LENGTH_SHORT).show();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void showPopupMenu(View view) {
+        PopupMenu popupMenu = new PopupMenu(this, view);
+        popupMenu.inflate(R.menu.popup_menu);
+        popupMenu.setOnMenuItemClickListener(item -> {
+            if (item.getItemId() == R.id.action_marks) {
+                showSpinnerProgressDialog("Loading Marks","Marks selected");
+                return true;
+            } else if (item.getItemId() == R.id.action_sports) {
+                showSpinnerProgressDialog("Loading Sports","Sports Selected");
+                return true;
+            } else {
+                return false;
+            }
+        });
+        popupMenu.show();
+    }
+
+    private void showSpinnerProgressDialog(String message , String m1) {
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage(message);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.show();
+
+        listView.postDelayed(() -> {
+            progressDialog.dismiss();
+            Toast.makeText(MainActivity.this, m1, Toast.LENGTH_SHORT).show();
+        }, 2000); // Delay for 2 seconds
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        if (v.getId() == R.id.listView) {
+            menu.setHeaderTitle("Select Action");
+            menu.setHeaderIcon(R.drawable.fruit);
+            menu.add(Menu.NONE, CONTEXT_MENU_ROLL_NO, Menu.NONE, "Roll No");
+            menu.add(Menu.NONE, CONTEXT_MENU_PLACE, Menu.NONE, "Place");
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        if (item.getItemId() == CONTEXT_MENU_ROLL_NO) {
+            showHorizontalProgressDialog("Loading Roll NO","Roll no Selected");
+            return true;
+        } else if (item.getItemId() == CONTEXT_MENU_PLACE) {
+            showHorizontalProgressDialog("Loading Place","Place selected");
+            return true;
+        } else {
+            return super.onContextItemSelected(item);
+        }
+    }
+
+    private void showHorizontalProgressDialog(String message,String m2) {
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage(message);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressDialog.setMax(100);
+        progressDialog.show();
+
+        new Thread(() -> {
+            for (int progress = 0; progress <= 100; progress += 20) {
+                try {
+                    Thread.sleep(400); // Simulate loading
+                    progressDialog.setProgress(progress);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            progressDialog.dismiss();
+            runOnUiThread(() -> Toast.makeText(MainActivity.this, m2, Toast.LENGTH_SHORT).show());
+        }).start();
+    }
+}
+
+
+activity_main.xml
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="wrap_content"
+        android:layout_height="600dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="16dp"
+        android:translationY="60dp" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
+
+    <ProgressBar
+        android:id="@+id/progressBarSpinner"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
+
+</RelativeLayout>
+
+
+res/menu/popup_menu.xml
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/action_marks"
+        android:title="Marks" />
+    <item android:id="@+id/action_sports"
+        android:title="Sports" />
+</menu>
+
+
+res/menu/menu_main.xml
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_profile"
+        android:title="Profile"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_settings"
+        android:title="Settings"
+        app:showAsAction="never" />
+</menu>

@@ -1,0 +1,161 @@
+MainActivity.java
+
+package com.example.broad_datetime;
+
+import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.bluetooth.BluetoothAdapter;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.BatteryManager;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.Calendar;
+
+public class MainActivity extends AppCompatActivity {
+
+    private TextView dateTextView;
+    private TextView timeTextView;
+    private InnerBroadcastReceiver receiver = new InnerBroadcastReceiver();
+
+    @SuppressLint("MissingInflatedId")
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        dateTextView = findViewById(R.id.dateTextView);
+        timeTextView = findViewById(R.id.timeTextView);
+        Button dateTimeButton = findViewById(R.id.dateTimeButton);
+
+        dateTimeButton.setOnClickListener(v -> {
+            showDateTimePicker();
+        });
+
+        checkInitialBatteryLevel();
+    }
+
+    private void showDateTimePicker() {
+        final Calendar calendar = Calendar.getInstance();
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                (view, year, month, dayOfMonth) -> {
+                    String date = dayOfMonth + "/" + (month + 1) + "/" + year;
+                    dateTextView.setText("Selected Date: " + date);
+                    showTimePicker();
+                }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.show();
+    }
+
+    private void showTimePicker() {
+        final Calendar calendar = Calendar.getInstance();
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this,
+                (view, hourOfDay, minute) -> {
+                    String time = hourOfDay + ":" + minute;
+                    timeTextView.setText("Selected Time: " + time);
+                }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
+        timePickerDialog.show();
+    }
+
+    private void checkInitialBatteryLevel() {
+        IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        Intent batteryStatus = this.registerReceiver(null, ifilter);
+
+        int level = batteryStatus != null ? batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) : 0;
+        int scale = batteryStatus != null ? batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1) : 0;
+        float batteryPct = level * 100 / (float) scale;
+
+        Toast.makeText(this, "Battery Level: " + batteryPct + "%", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_AIRPLANE_MODE_CHANGED);
+        filter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
+        registerReceiver(receiver, filter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(receiver);
+    }
+
+    private class InnerBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (Intent.ACTION_AIRPLANE_MODE_CHANGED.equals(intent.getAction())) {
+                handleAirplaneModeChanged(context, intent);
+            } else if (BluetoothAdapter.ACTION_STATE_CHANGED.equals(intent.getAction())) {
+                handleBluetoothStateChanged(context, intent);
+            }
+        }
+    }
+
+    private void handleAirplaneModeChanged(Context context, Intent intent) {
+        boolean isAirplaneModeOn = intent.getBooleanExtra("state", false);
+        Toast.makeText(context, isAirplaneModeOn ? "Airplane Mode ON" : "Airplane Mode OFF", Toast.LENGTH_SHORT).show();
+    }
+
+    private void handleBluetoothStateChanged(Context context, Intent intent) {
+        final int state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR);
+        switch (state) {
+            case BluetoothAdapter.STATE_OFF:
+                Toast.makeText(context, "Bluetooth OFF", Toast.LENGTH_SHORT).show();
+                break;
+            case BluetoothAdapter.STATE_ON:
+                Toast.makeText(context, "Bluetooth ON", Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
+}
+
+
+
+
+activity_main.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <Button
+        android:id="@+id/dateTimeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Date Time"/>
+
+    <TextView
+        android:id="@+id/dateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Selected Date: "
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/timeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Selected Time: "
+        android:layout_marginTop="16dp"/>
+</LinearLayout>
+
+
+
+manifest
+
+<uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
